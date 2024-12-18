@@ -1,10 +1,35 @@
-import { Eye } from "lucide-react";
+"use client";
+
 import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Form } from "@nextui-org/form";
 import { Input } from "@nextui-org/input";
+import { EyeClosedIcon, EyeIcon } from "lucide-react";
+import React, { useState } from "react";
+import { LoginInput, useLoginSchema } from "@/lib/schema/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { login } from "@/app/actions/auth";
 
 export default function LoginPage() {
+  const [isPassVisible, setIsPassVisible] = React.useState(false);
+  const togglePassVisibility = () => setIsPassVisible(!isPassVisible);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginInput>({
+    resolver: zodResolver(useLoginSchema),
+  });
+
+  const onSubmit = async (data: LoginInput) => {
+    setIsLoading(true);
+    const response = await login(data);
+    setIsLoading(false);
+  };
+
   return (
     <Card className="flex flex-col gap-7 p-3 rounded-3xl">
       <CardHeader>
@@ -14,28 +39,47 @@ export default function LoginPage() {
         </div>
       </CardHeader>
       <CardBody>
-        <Form className="w-full">
+        <Form
+          className="w-full"
+          validationBehavior="native"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="w-full">
             <Input
-              isRequired
               label="Email"
               labelPlacement="outside"
-              name="email"
               type="email"
               variant="bordered"
               placeholder="john@example.com"
+              isInvalid={errors.email ? true : false}
+              errorMessage={errors.email ? errors.email.message : ""}
+              {...register("email")}
             />
           </div>
           <div className="w-full">
             <Input
-              isRequired
+              endContent={
+                <button
+                  aria-label="toggle password visibility"
+                  className="focus:outline-none"
+                  type="button"
+                  onClick={togglePassVisibility}
+                >
+                  {isPassVisible ? (
+                    <EyeIcon className="text-2xl text-default-400 pointer-events-none" />
+                  ) : (
+                    <EyeClosedIcon className="text-2xl text-default-400 pointer-events-none" />
+                  )}
+                </button>
+              }
               label="Password"
-              labelPlacement="outside"
-              name="password"
-              type="password"
               placeholder="****"
+              type={isPassVisible ? "text" : "password"}
               variant="bordered"
-              endContent={<Eye />}
+              labelPlacement="outside"
+              isInvalid={errors.password ? true : false}
+              errorMessage={errors.password ? errors.password.message : ""}
+              {...register("password")}
             />
           </div>
           <div className="w-full mt-3">
@@ -44,6 +88,7 @@ export default function LoginPage() {
               color="primary"
               variant="shadow"
               className="w-full"
+              isLoading={isLoading}
             >
               Submit
             </Button>
