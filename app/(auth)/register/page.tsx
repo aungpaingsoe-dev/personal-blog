@@ -9,7 +9,8 @@ import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { useForm } from "react-hook-form";
 import { RegisterInput, useRegisterSchema } from "@/lib/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { register as userRegister } from "@/app/actions/auth";
+import { registerOauth, register as userRegister } from "@/app/actions/auth";
+import { GithubIcon } from "@/components/icons";
 
 export default function RegisterPage() {
   const [isPassVisible, setIsPassVisible] = React.useState(false);
@@ -137,6 +138,20 @@ export default function RegisterPage() {
             </Button>
           </div>
         </Form>
+
+        <div>
+          <div className=" text-foreground-500 my-3 text-center ">OR</div>
+          <Button
+            type="button"
+            variant="shadow"
+            className="w-full"
+            color="default"
+            onClick={() => registerOauth("github")}
+          >
+            <GithubIcon />
+            Register with github
+          </Button>
+        </div>
       </CardBody>
     </Card>
   );

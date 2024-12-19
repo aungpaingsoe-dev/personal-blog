@@ -6,6 +6,7 @@ import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: {
@@ -39,8 +40,8 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          {children}
+        <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
+          <SessionProvider>{children}</SessionProvider>
         </Providers>
       </body>
     </html>

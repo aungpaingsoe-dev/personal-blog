@@ -9,7 +9,8 @@ import React, { useState } from "react";
 import { LoginInput, useLoginSchema } from "@/lib/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { login } from "@/app/actions/auth";
+import { login, registerOauth } from "@/app/actions/auth";
+import { GithubIcon } from "@/components/icons";
 
 export default function LoginPage() {
   const [isPassVisible, setIsPassVisible] = React.useState(false);
@@ -94,6 +95,19 @@ export default function LoginPage() {
             </Button>
           </div>
         </Form>
+        <div>
+          <div className=" text-foreground-500 my-3 text-center ">OR</div>
+          <Button
+            type="button"
+            variant="shadow"
+            className="w-full"
+            color="default"
+            onClick={() => registerOauth("github")}
+          >
+            <GithubIcon />
+            Login with github
+          </Button>
+        </div>
       </CardBody>
     </Card>
   );

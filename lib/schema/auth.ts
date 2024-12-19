@@ -1,4 +1,3 @@
-import { prisma } from "@/prisma/prisma";
 import { z } from "zod";
 
 export const useRegisterSchema = z

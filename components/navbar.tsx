@@ -20,12 +20,15 @@ import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
-  DropdownSection,
   DropdownItem,
 } from "@nextui-org/dropdown";
 import { Avatar } from "@nextui-org/avatar";
+import { logOut } from "@/app/actions/auth";
+import { useSession } from "next-auth/react";
 
 export const Navbar = () => {
+  const { data: session } = useSession();
+
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -80,14 +83,23 @@ export const Navbar = () => {
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">zoey@example.com</p>
+                <p className="font-semibold">{session?.user?.email}</p>
               </DropdownItem>
-              <DropdownItem key="settings">My Settings</DropdownItem>
+              <DropdownItem key="settings">
+                <Link
+                  href="/settings"
+                  color="foreground"
+                  className=" w-full "
+                  size="sm"
+                >
+                  My Settings
+                </Link>
+              </DropdownItem>
               <DropdownItem key="help_and_feedback">
                 Help & Feedback
               </DropdownItem>
               <DropdownItem key="logout" color="danger">
-                Log Out
+                <div onClick={() => logOut()}>Log Out</div>
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>

@@ -1,5 +1,6 @@
 "use server"
 
+import { signIn, signOut } from "@/lib/auth";
 import { LoginInput, RegisterInput } from "@/lib/schema/auth";
 import { prisma } from "@/prisma/prisma"
 import bcrypt, { compareSync } from "bcrypt";
@@ -32,6 +33,7 @@ export async function register(data: RegisterInput) {
         data: {
             name,
             email,
+            username: "test",
             password: hashPassword
         }
     });
@@ -63,3 +65,10 @@ export async function login(data: LoginInput) {
     redirect("/");
 }
 
+export async function registerOauth(provider: 'google' | 'github') {
+    await signIn(provider, { redirectTo: '/' });
+}
+
+export async function logOut() {
+    await signOut()
+}
