@@ -4,6 +4,7 @@ import { Chip } from "@nextui-org/chip";
 import { Input } from "@nextui-org/input";
 import { Search } from "lucide-react";
 import { Avatar, AvatarGroup } from "@nextui-org/avatar";
+import { Image } from "@nextui-org/image";
 
 export default function BlogFilter() {
   const handleClick = () => {
@@ -63,6 +64,31 @@ export default function BlogFilter() {
               <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026702d" />
               <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026708c" />
             </AvatarGroup>
+          </div>
+        </div>
+
+        <div>
+          <div className="font-bold">Recent Posts</div>
+          <div className="mt-3">
+            <div className=" flex gap-2 ">
+              <div className=" basis-4/12 ">
+                <Image
+                  isZoomed
+                  isBlurred
+                  fallbackSrc="https://via.placeholder.com"
+                  alt="NextUI hero Image"
+                  src="/pexels-pixabay-220769.jpg"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className=" basis-8/12 ">
+                <div className="text-md font-bold">Blog Post Title</div>
+                <div className="text-muted-foreground text-sm text-foreground-600">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
