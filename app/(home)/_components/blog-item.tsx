@@ -14,7 +14,7 @@ export default function BlogItem() {
               isBlurred
               fallbackSrc="https://via.placeholder.com"
               alt="NextUI hero Image"
-              src="/pexels-pixabay-220769.jpg"
+              src="https://nextui.org/images/hero-card-complete.jpeg"
               width={200}
               height={200}
             />
