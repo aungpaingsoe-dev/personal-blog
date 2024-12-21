@@ -85,6 +85,16 @@ export const Navbar = () => {
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{session?.user?.email}</p>
               </DropdownItem>
+              <DropdownItem key="my-profile">
+                <Link
+                  href="/profile"
+                  color="foreground"
+                  className=" w-full "
+                  size="sm"
+                >
+                  My Profile
+                </Link>
+              </DropdownItem>
               <DropdownItem key="settings">
                 <Link
                   href="/settings"
@@ -92,7 +102,7 @@ export const Navbar = () => {
                   className=" w-full "
                   size="sm"
                 >
-                  My Settings
+                  Settings
                 </Link>
               </DropdownItem>
               <DropdownItem key="help_and_feedback">
